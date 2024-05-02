@@ -5,13 +5,17 @@ using namespace std;
 
 void pressEnterToContinue();
 int characterCount(const string& fileName);
+int wordCount(const string& fileName);
 
 int main() {
-    int charCount;
+    int charCount, wdCount;
     string datafile;
     cout << "Enter input file: " << endl;
     getline(cin, datafile);
-    cout << "Characters: " << characterCount(datafile) << endl;
+    charCount = characterCount(datafile);
+    wdCount = wordCount(datafile);
+    cout << "Characters: " << charCount << endl;
+    cout << "Words: " << wdCount << endl;
     pressEnterToContinue();
 }
 
@@ -39,4 +43,22 @@ int characterCount(const string& fileName) {
 
     inFile.close();
     return charCount;
+}
+
+int wordCount(const string& fileName) {
+    ifstream inFile(fileName);
+    string word;
+    int wordCount = 0;
+
+    if (!inFile.is_open()) {
+        cout << "Failed to open file." << endl;
+        return -1;
+    }
+
+    while (inFile >> word) {
+        wordCount++;
+    }
+
+    inFile.close();
+    return wordCount;
 }
